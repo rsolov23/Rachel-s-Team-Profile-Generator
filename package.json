@@ -1,0 +1,32 @@
+{
+  "name": "teamprofilegenerator",
+  "version": "1.0.0",
+  "description": "profile generator",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsolov23/Rachel-s-Team-Profile-Generator.git"
+  },
+  "keywords": [
+    "profile",
+    "generator"
+  ],
+  "author": "Rachel Solov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rsolov23/Rachel-s-Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/rsolov23/Rachel-s-Team-Profile-Generator#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "inquirer": "^8.0.0"
+  }
+}
