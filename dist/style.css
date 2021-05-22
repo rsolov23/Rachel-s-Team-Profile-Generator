@@ -1,0 +1,15 @@
+* {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+p {
+  color: #b2ebf2;
+}
+
+span {
+  float: inline-start;
+}
