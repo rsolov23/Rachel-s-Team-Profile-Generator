@@ -1,4 +1,3 @@
-const { test, expect } = require("@jest/globals");
 const Employee = require("../lib/Employee.js");
 
 //write a test if name is string

@@ -1,4 +1,3 @@
-const { test, expect } = require("@jest/globals");
 const Intern = require("../lib/Intern");
 
 //test if school is a string

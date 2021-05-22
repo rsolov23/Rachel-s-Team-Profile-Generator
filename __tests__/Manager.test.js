@@ -1,6 +1,5 @@
 //require manager .js
 
-const { test, expect } = require("@jest/globals");
 const Manager = require("../lib/Manager");
 //test if office number is a number
 test("checks if office number is number", () => {
