@@ -6,28 +6,37 @@ const inquirer = require("inquirer");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
+const generatePage = require("./src/page-template");
+
 //require page template
-const pageTemplate = require("./src/page-template");
+// const pageTemplate = require("./src/page-template");
 
 let employeeArr = [];
 
 const promptRole = () => {
   console.log("Welcome to my Team Profile Generator!");
-  inquirer
+  return inquirer
     .prompt([
       {
         type: "list",
+        name: "role",
         choices: ["Engineer", "Manager", "Intern", "My team is complete!"],
-        name: "choice",
         message: "Which role would you like to add?",
       },
     ])
     .then((res) => {
-      if (res.choice !== "My team is complete!") {
-        promptEmployee(res.choice);
+      if (res.role !== "My team is complete!") {
+        promptEmployee(res.role);
       } else {
-        console.log(employeeArr);
+        //write file
+        const writeToFile = (employeeData) => {
+          fs.writeFileSync("develop.html", generatePage(employeeData), "utf-8");
+        };
+        writeToFile(employeeArr);
         console.log("Your team is set!!");
+        console.log(employeeArr);
+
+        return employeeArr;
         //do something with this, maybe put it into pagetemplate, I don't know
       }
     });
@@ -53,18 +62,18 @@ const promptEmployee = (role) => {
     ])
     .then((res) => {
       if (role == "Manager") {
-        promptManager(res);
+        promptManager(res, role);
       } else if (role == "Engineer") {
-        promptEngineer(res);
+        promptEngineer(res, role);
       } else if (role == "Intern") {
-        promptIntern(res);
+        promptIntern(res, role);
       }
     });
 };
 
 // promptEmployee();
 
-const promptManager = (data) => {
+const promptManager = (data, type) => {
   //   promptEmployee();
 
   return inquirer
@@ -76,13 +85,19 @@ const promptManager = (data) => {
       },
     ])
     .then(({ officeNumber }) => {
-      const manager = new Manager(data.name, data.ID, data.email, officeNumber);
+      const manager = new Manager(
+        type,
+        data.name,
+        data.ID,
+        data.email,
+        officeNumber
+      );
       console.log(manager);
       employeeArr.push(manager);
       promptRole();
     });
 };
-const promptEngineer = (data) => {
+const promptEngineer = (data, type) => {
   return inquirer
     .prompt([
       {
@@ -93,6 +108,7 @@ const promptEngineer = (data) => {
     ])
     .then(({ githubUserName }) => {
       const engineer = new Engineer(
+        type,
         data.name,
         data.ID,
         data.email,
@@ -104,7 +120,7 @@ const promptEngineer = (data) => {
     });
 };
 
-const promptIntern = (data) => {
+const promptIntern = (data, type) => {
   return inquirer
     .prompt([
       {
@@ -114,10 +130,28 @@ const promptIntern = (data) => {
       },
     ])
     .then(({ school }) => {
-      const intern = new Intern(data.name, data.ID, data.email, school);
+      const intern = new Intern(type, data.name, data.ID, data.email, school);
       console.log(intern);
       employeeArr.push(intern);
       promptRole();
     });
 };
+
+// promptRole();
+// TODO: Create a function to write html
+
+// const writeToFile = (employeeArr) => {
+//   fs.writeFileSync("develop.html", employeeArr, "utf-8");
+// };
+
+// TODO: Create a function to initialize app
 promptRole();
+// .then((employeeData) => {
+//   return generatePage(employeeData);
+// })
+// .then((employeeData) => {
+//   return writeToFile(employeeData);
+// })
+// .catch((err) => {
+//   console.log(err);
+// });
